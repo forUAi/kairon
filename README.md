@@ -156,53 +156,36 @@ cd recon_engine
 cp .env.example .env
 
 2️⃣ Start with Docker
-bash
-Copy
-Edit
+
 docker-compose up -d
 Runs API server + Postgres + Alembic migrations.
 
 3️⃣ Run Migrations (if manual)
-bash
-Copy
-Edit
+
 psql -U postgres -d recon_db -f recon_engine/database/schema.sql
-🧪 Run Reconciliation via CLI
-bash
-Copy
-Edit
+Run Reconciliation via CLI
+
 python recon_engine/cli.py run-recon \
   --source bank_csv \
   --date 2025-07-13 \
   --file_path ./data/bank_dump.csv
 ⚙️ API Endpoints
 ✅ Trigger Reconciliation
-bash
-Copy
-Edit
+
 curl -X POST "http://localhost:8000/recon/run" \
   -H "Content-Type: application/json" \
   -d '{ "source": "bank_csv", "date": "2025-07-13" }'
 ✅ Get Job Status
-bash
-Copy
-Edit
+
 curl http://localhost:8000/recon/status/2025-07-13
 ✅ View Logs (Matched/Unmatched)
-bash
-Copy
-Edit
+
 curl "http://localhost:8000/recon/logs?source=bank_csv&date=2025-07-13&matched=false"
 ✅ Job Summary
-bash
-Copy
-Edit
+
 curl http://localhost:8000/recon/summary/2025-07-13
 🧪 Testing
 Run Tests
-bash
-Copy
-Edit
 pytest tests/ -v
 Tests include:
 
@@ -222,9 +205,6 @@ Tests include:
 ✅ All results logged for compliance and auditability
 
 📊 Sample Data Flow
-text
-Copy
-Edit
 🔁 External CSV (bank) with 3 txns
 🔁 Internal ledger with 3 events
 
@@ -244,9 +224,6 @@ Edit
 
 🧰 Developer Tools
 Dev Environment
-bash
-Copy
-Edit
 poetry install
 poetry run uvicorn recon_engine.api.main:app --reload
 API Docs
@@ -271,14 +248,8 @@ MIT — Free to use, modify, and embed in enterprise financial workflows.
 
 ✅ How to Use
 🐳 Start Everything
-bash
-Copy
-Edit
 docker-compose up --build -d
 🧬 Seed Sample Data
-bash
-Copy
-Edit
 docker exec -it recon_engine python scripts/seed_data.py
 🧪 Then Hit:
 http://localhost:8000/recon/summary/2025-07-13
