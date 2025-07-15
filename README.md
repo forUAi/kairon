@@ -48,3 +48,62 @@ Alice → Bob (100 USD payment)
 Bob → Alice (50 USD refund)
 
 This creates a complete audit trail with proper double-entry bookkeeping!
+
+
+📚 API Documentation
+Example API Calls
+##Create Account
+bash
+curl -X POST "http://localhost:8000/ledger/account/" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "currency": "USD",
+    "type": "user",
+    "metadata": {"name": "John Doe"}
+  }'
+  
+##Transfer Funds
+bash
+curl -X POST "http://localhost:8000/ledger/transfer/" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "source_account_id": "550e8400-e29b-41d4-a716-446655440000",
+    "destination_account_id": "550e8400-e29b-41d4-a716-446655440001",
+    "amount": "100.50",
+    "currency": "USD",
+    "metadata": {"description": "Payment for services"}
+  }'
+  
+##Get Account Balance
+bash
+curl "http://localhost:8000/ledger/account/550e8400-e29b-41d4-a716-446655440000/balance"
+
+##Get Account Events
+bash
+curl "http://localhost:8000/ledger/events/?account_id=550e8400-e29b-41d4-a716-446655440000&limit=50"
+
+🚀 Getting Started
+
+Setup Environment
+bash
+cp .env.example .env
+
+# Edit .env with your configuration
+
+Start with Docker
+bashdocker-compose up -d
+
+Run Migrations
+bash# Migrations run automatically with docker-compose
+# Or manually: psql -U ledger_user -d ledger_db -f app/database/migrations/001_initial_schema.sql
+
+Seed Data
+bashpython scripts/seed_data.py
+
+Run Tests
+bashpytest tests/ -v
+
+Access API Documentation
+
+OpenAPI/Swagger: http://localhost:8000/docs
+ReDoc: http://localhost:8000/redoc
