@@ -269,4 +269,20 @@ Built with ❤️ by Vishal, part of the Kairon Infra stack.
 🏁 License
 MIT — Free to use, modify, and embed in enterprise financial workflows.
 
+✅ How to Use
+🐳 Start Everything
+bash
+Copy
+Edit
+docker-compose up --build -d
+🧬 Seed Sample Data
+bash
+Copy
+Edit
+docker exec -it recon_engine python scripts/seed_data.py
+🧪 Then Hit:
+http://localhost:8000/recon/summary/2025-07-13
+
+http://localhost:8000/recon/logs
+
 
